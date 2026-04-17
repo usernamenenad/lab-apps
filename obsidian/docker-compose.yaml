@@ -17,7 +17,7 @@ services:
 
     volumes:
       - ./couchdb-data:/opt/couchdb/data
-      - ./couchdb.ini:/opt/couchdb/etc/local.d/cors.ini:ro
+      - ./couchdb.ini:/opt/couchdb/etc/local.d/cors.ini
 
     networks:
       - apps_net

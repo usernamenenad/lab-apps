@@ -1,0 +1,30 @@
+services:
+  couchdb:
+    image: couchdb:latest
+    container_name: couchdb
+
+    environment:
+      - COUCHDB_USER=${COUCHDB_USER}
+      - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.couchdb.rule=Host(`couch.nenad.cloud`)"
+      - "traefik.http.routers.couchdb.entrypoints=websecure"
+      - "traefik.http.routers.couchdb.tls.certresolver=letsencrypt"
+      - "traefik.http.services.couchdb.loadbalancer.server.port=5984"
+
+    volumes:
+      - ./couchdb-data:/opt/couchdb/data
+
+    networks:
+      - apps_net
+
+volumes:
+  couchdb-data:
+
+
+networks:
+  apps_net:
+  proxy:
+    external: true
